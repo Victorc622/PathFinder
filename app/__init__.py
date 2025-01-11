@@ -7,6 +7,11 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.trip_routes import trip_routes
+from .api.destination_routes import destination_routes
+from .api.activity_routes import activity_routes
+from .api.photo_routes import photo_routes
+from .api.comment_routes import comment_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -26,8 +31,16 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
+# Register Blueprints
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(trip_routes, url_prefix='/api/trips')
+app.register_blueprint(destination_routes, url_prefix='/api/destinations')
+app.register_blueprint(activity_routes, url_prefix='/api/activities')
+app.register_blueprint(photo_routes, url_prefix='/api/photos')
+app.register_blueprint(comment_routes, url_prefix='/api/comments')
+
 db.init_app(app)
 Migrate(app, db)
 
@@ -35,11 +48,7 @@ Migrate(app, db)
 CORS(app)
 
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
+# Redirect HTTP to HTTPS in production
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
