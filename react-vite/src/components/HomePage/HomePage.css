@@ -1,0 +1,116 @@
+.home {
+    font-family: 'Arial', sans-serif;
+    color: #5c476f;
+    line-height: 1.6;
+  }
+  
+  .hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+    height: 55vh;
+    background-color: #fef9ff;
+    border: 1px solid #e6d3ed;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    gap: 1.5rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+    color: #6b4e8e;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .hero-buttons .btn-primary,
+  .hero-buttons .btn-secondary {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #a67db8;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .hero-buttons .btn-primary:hover,
+  .hero-buttons .btn-secondary:hover {
+    background-color: #6b4e8e;
+  }
+  
+  .features {
+    padding: 2rem 1.5rem;
+    background-color: #fdfdff;
+    border-radius: 8px;
+  }
+  
+  .features h2 {
+    text-align: center;
+    color: #6b4e8e;
+    margin-bottom: 1.5rem;
+  }
+  
+  .features-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .feature-item img {
+    width: 100%;
+    max-width: 400px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  .feature-item h3 {
+    color: #6b4e8e;
+    font-size: 1.2rem;
+  }
+  
+  .cta {
+    text-align: center;
+    padding: 2rem;
+    background-color: #a67db8;
+    color: white;
+    border-radius: 8px;
+  }
+  
+  .cta h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta .btn-primary {
+    background-color: #6b4e8e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta .btn-primary:hover {
+    background-color: #543c6e;
+  }

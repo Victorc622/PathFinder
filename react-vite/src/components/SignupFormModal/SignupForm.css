@@ -1,0 +1,104 @@
+.signup-modal-container {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #fef9ff;
+    border: 1px solid #e6d3ed;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: "Arial", sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #6b4e8e;
+    font-size: 2rem;
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    color: #5c476f;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #d8c4e7;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fdfdff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input:focus {
+    border-color: #a67db8;
+    outline: none;
+    box-shadow: 0 0 4px rgba(166, 125, 184, 0.7);
+  }
+  
+  button {
+    background-color: #a67db8;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  button:disabled {
+    background-color: #d8c4e7;
+    cursor: not-allowed;
+  }
+  
+  button:hover:not(:disabled) {
+    background-color: #8b5f9e;
+  }
+  
+  .error {
+    color: #e57373;
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  
+  .error-general {
+    text-align: center;
+    color: #e57373;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .signup-page-container,
+    .signup-modal-container {
+      margin: 20px;
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    input {
+      font-size: 0.9rem;
+    }
+  
+    button {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  }
