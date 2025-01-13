@@ -1,71 +1,71 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, session
 from app.models import User, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 
 auth_routes = Blueprint('auth', __name__)
 
-
 @auth_routes.route('/')
 def authenticate():
     """
-    Authenticates a user.
+    Authenticates a user and returns their information if logged in.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
-    return {'errors': {'message': 'Unauthorized'}}, 401
+        return jsonify(current_user.to_dict())
+    return jsonify({'errors': {'message': 'Unauthorized'}}), 401
 
 
 @auth_routes.route('/login', methods=['POST'])
 def login():
     """
-    Logs a user in
+    Logs a user in and returns their information.
     """
     form = LoginForm()
-    # Get the csrf_token from the request cookie and put it into the
-    # form manually to validate_on_submit can be used
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies.get('csrf_token')  # Safely get CSRF token
     if form.validate_on_submit():
-        # Add the user to the session, we are logged in!
-        user = User.query.filter(User.email == form.data['email']).first()
-        login_user(user)
-        return user.to_dict()
-    return form.errors, 401
+        user = User.query.filter_by(email=form.data['email']).first()
+        if user and user.check_password(form.data['password']):  # Validate password
+            session.clear()  # Clear existing session data
+            login_user(user)  # Log in the user
+            return jsonify(user.to_dict())
+        return jsonify({'errors': {'message': 'Invalid email or password'}}), 401
+    return jsonify({'errors': form.errors}), 401
 
 
-@auth_routes.route('/logout')
+@auth_routes.route('/logout', methods=['POST'])
+@login_required
 def logout():
     """
-    Logs a user out
+    Logs a user out and clears their session.
     """
     logout_user()
-    return {'message': 'User logged out'}
+    session.clear()
+    return jsonify({'message': 'User logged out'})
 
 
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
-    Creates a new user and logs them in
+    Creates a new user, logs them in, and returns their information.
     """
     form = SignUpForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    form['csrf_token'].data = request.cookies.get('csrf_token')  # Safely get CSRF token
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password']  # Assuming the User model hashes passwords
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
-    return form.errors, 401
+        return jsonify(user.to_dict())
+    return jsonify({'errors': form.errors}), 401
 
 
 @auth_routes.route('/unauthorized')
 def unauthorized():
     """
-    Returns unauthorized JSON when flask-login authentication fails
+    Returns an unauthorized JSON response when flask-login authentication fails.
     """
-    return {'errors': {'message': 'Unauthorized'}}, 401
+    return jsonify({'errors': {'message': 'Unauthorized'}}), 401
