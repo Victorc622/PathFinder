@@ -3,7 +3,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 class Activity(db.Model):
     __tablename__ = 'activities'
     if environment == "production":
-        __tablename__ = add_prefix_for_prod(__tablename__)
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
