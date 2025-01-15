@@ -6,11 +6,11 @@ body {
 }
 
 .trip-form-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 50px auto;
   padding: 20px;
   background-color: #f5f2fc;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -21,9 +21,10 @@ body {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #6a4f98;
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -37,8 +38,9 @@ label {
   color: #6a4f98;
 }
 
-input, textarea {
-  padding: 10px;
+input,
+textarea {
+  padding: 12px;
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1rem;
@@ -46,7 +48,8 @@ input, textarea {
   transition: border-color 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #6a4f98;
 }
 
@@ -55,7 +58,9 @@ textarea {
   min-height: 100px;
 }
 
-.submit-button {
+.submit-button,
+.add-destination-button,
+.add-activity-button {
   background-color: #8e44ad;
   color: white;
   font-size: 1.1rem;
@@ -64,11 +69,40 @@ textarea {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.submit-button:hover {
+.submit-button:hover,
+.add-destination-button:hover,
+.add-activity-button:hover {
   background-color: #732d91;
+  transform: translateY(-2px);
+}
+
+.add-destination-button,
+.add-activity-button {
+  margin-top: 10px;
+}
+
+.destination-group,
+.activity-group {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.destination-group h3,
+.activity-group h4 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.activity-group {
+  background-color: #f9f5fc;
 }
 
 @media (max-width: 768px) {
@@ -78,10 +112,12 @@ textarea {
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
-  .submit-button {
+  .submit-button,
+  .add-destination-button,
+  .add-activity-button {
     font-size: 1rem;
     padding: 10px 15px;
   }
