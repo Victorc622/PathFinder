@@ -77,14 +77,21 @@ def update_trip(id):
         return jsonify({'errors': [{'field': 'id', 'message': 'Unauthorized access'}]}), 403
 
     data = request.get_json()
+
+    try:
+        
+        if 'start_date' in data:
+            trip.start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
+        if 'end_date' in data:
+            trip.end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
+    except ValueError:
+        return jsonify({'errors': [{'field': 'dates', 'message': 'Invalid date format. Expected YYYY-MM-DD.'}]}), 400
+
     trip.name = data.get('name', trip.name)
     trip.description = data.get('description', trip.description)
-    trip.start_date = data.get('start_date', trip.start_date)
-    trip.end_date = data.get('end_date', trip.end_date)
 
     db.session.commit()
     return jsonify(trip.to_dict()), 200
-
 
 @trip_routes.route('/<int:id>', methods=['DELETE'])
 @login_required

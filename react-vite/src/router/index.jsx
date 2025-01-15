@@ -6,6 +6,7 @@ import HomePage from '../components/HomePage/HomePage';
 import TripPage from '../components/TripPage/TripPage';
 import CreateTrip from '../components/TripPage/TripFormPage';
 import TripDetails from '../components/TripPage/TripDetails';
+import EditTripPage from "../components/TripPage/EditTripPage";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "trips/:id",
         element: <TripDetails />,
+      },
+      {
+        path: "/trips/edit/:id",
+        element: <EditTripPage />,
       },
     ],
   },

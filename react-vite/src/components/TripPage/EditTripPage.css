@@ -1,0 +1,70 @@
+.edit-trip-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #e1d0e8;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-trip-container h1 {
+    text-align: center;
+    color: #6a4f98;
+    margin-bottom: 20px;
+}
+
+.edit-trip-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-trip-form label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.edit-trip-form input,
+.edit-trip-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.edit-trip-form textarea {
+    resize: none;
+    height: 100px;
+}
+
+.save-button {
+    background-color: #6a4f98;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #8e44ad;
+}
+
+.cancel-button {
+    background-color: #ff4d4f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #e84142;
+}
