@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.4.0"
+    "@googlemaps/google-maps-services-js": "^3.4.0",
+    "@react-google-maps/api": "^2.20.5"
   }
 }

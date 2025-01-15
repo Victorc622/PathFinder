@@ -5,9 +5,16 @@ body {
   padding-top: 60px;
 }
 
+.trip-form-page {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 60px auto 0;
+}
+
 .trip-form-container {
-  max-width: 800px;
-  margin: 50px auto;
+  flex: 0 0 45%;
   padding: 20px;
   background-color: #f5f2fc;
   border-radius: 10px;
@@ -17,11 +24,11 @@ body {
 .trip-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 h1 {
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: #6a4f98;
   text-align: center;
   margin-bottom: 20px;
@@ -40,7 +47,7 @@ label {
 
 input,
 textarea {
-  padding: 12px;
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1rem;
@@ -55,7 +62,7 @@ textarea:focus {
 
 textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 80px;
 }
 
 .submit-button,
@@ -63,9 +70,9 @@ textarea {
 .add-activity-button {
   background-color: #8e44ad;
   color: white;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 12px 20px;
+  padding: 10px 15px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -89,15 +96,15 @@ textarea {
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .destination-group h3,
 .activity-group h4 {
   margin-bottom: 10px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: #333;
 }
 
@@ -105,20 +112,27 @@ textarea {
   background-color: #f9f5fc;
 }
 
+.map-container {
+  flex: 0 0 50%; /* Allow the map to take up 50% of the page width */
+  height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .trip-form-container {
-    padding: 15px;
-    margin: 20px;
+  .trip-form-page {
+    flex-direction: column;
   }
 
-  h1 {
-    font-size: 1.8rem;
+  .trip-form-container,
+  .map-container {
+    flex: 1;
+    width: 100%;
   }
 
-  .submit-button,
-  .add-destination-button,
-  .add-activity-button {
-    font-size: 1rem;
-    padding: 10px 15px;
+  .map-container {
+    height: 300px;
   }
 }
