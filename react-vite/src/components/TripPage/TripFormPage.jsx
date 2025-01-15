@@ -6,6 +6,66 @@ const CreateTrip = () => {
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [destinations, setDestinations] = useState([
+    {
+      name: '',
+      location: '',
+      start_date: '',
+      end_date: '',
+      notes: '',
+      activities: [
+        {
+          name: '',
+          description: '',
+          time: '',
+        },
+      ],
+    },
+  ]);
+
+  const handleDestinationChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedDestinations = [...destinations];
+    updatedDestinations[index][name] = value;
+    setDestinations(updatedDestinations);
+  };
+
+  const handleActivityChange = (destIndex, actIndex, e) => {
+    const { name, value } = e.target;
+    const updatedDestinations = [...destinations];
+    updatedDestinations[destIndex].activities[actIndex][name] = value;
+    setDestinations(updatedDestinations);
+  };
+
+  const addDestination = () => {
+    setDestinations((prev) => [
+      ...prev,
+      {
+        name: '',
+        location: '',
+        start_date: '',
+        end_date: '',
+        notes: '',
+        activities: [
+          {
+            name: '',
+            description: '',
+            time: '',
+          },
+        ],
+      },
+    ]);
+  };
+
+  const addActivity = (destIndex) => {
+    const updatedDestinations = [...destinations];
+    updatedDestinations[destIndex].activities.push({
+      name: '',
+      description: '',
+      time: '',
+    });
+    setDestinations(updatedDestinations);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +78,7 @@ const CreateTrip = () => {
           description,
           start_date: startDate,
           end_date: endDate,
+          destinations,
         }),
       });
 
@@ -71,6 +132,99 @@ const CreateTrip = () => {
             required
           />
         </div>
+        <h2>Destinations</h2>
+        {destinations.map((destination, destIndex) => (
+          <div key={destIndex} className="destination-group">
+            <h3>Destination {destIndex + 1}</h3>
+            <div className="form-group">
+              <label>Destination Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={destination.name}
+                onChange={(e) => handleDestinationChange(destIndex, e)}
+                placeholder="Enter the destination name"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Location:</label>
+              <input
+                type="text"
+                name="location"
+                value={destination.location}
+                onChange={(e) => handleDestinationChange(destIndex, e)}
+                placeholder="Enter the location"
+              />
+            </div>
+            <div className="form-group">
+              <label>Notes:</label>
+              <textarea
+                name="notes"
+                value={destination.notes}
+                onChange={(e) => handleDestinationChange(destIndex, e)}
+                placeholder="Add any notes about this destination"
+              />
+            </div>
+            <div className="form-group">
+              <label>Start Date:</label>
+              <input
+                type="date"
+                name="start_date"
+                value={destination.start_date}
+                onChange={(e) => handleDestinationChange(destIndex, e)}
+              />
+            </div>
+            <div className="form-group">
+              <label>End Date:</label>
+              <input
+                type="date"
+                name="end_date"
+                value={destination.end_date}
+                onChange={(e) => handleDestinationChange(destIndex, e)}
+              />
+            </div>
+            <h4>Activities</h4>
+            {destination.activities.map((activity, actIndex) => (
+              <div key={actIndex} className="activity-group">
+                <div className="form-group">
+                  <label>Activity Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={activity.name}
+                    onChange={(e) => handleActivityChange(destIndex, actIndex, e)}
+                    placeholder="Enter the activity name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Description:</label>
+                  <textarea
+                    name="description"
+                    value={activity.description}
+                    onChange={(e) => handleActivityChange(destIndex, actIndex, e)}
+                    placeholder="Add a description for the activity"
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Time:</label>
+                  <input
+                    type="time"
+                    name="time"
+                    value={activity.time}
+                    onChange={(e) => handleActivityChange(destIndex, actIndex, e)}
+                  />
+                </div>
+              </div>
+            ))}
+            <button type="button" onClick={() => addActivity(destIndex)}>
+              + Add Activity
+            </button>
+          </div>
+        ))}
+        <button type="button" onClick={addDestination}>
+          + Add Destination
+        </button>
         <button type="submit" className="submit-button">Create Trip</button>
       </form>
     </div>
