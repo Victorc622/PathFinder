@@ -21,12 +21,12 @@ def login():
     Logs a user in and returns their information.
     """
     form = LoginForm()
-    form['csrf_token'].data = request.cookies.get('csrf_token')  # Safely get CSRF token
+    form['csrf_token'].data = request.cookies.get('csrf_token')
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.data['email']).first()
-        if user and user.check_password(form.data['password']):  # Validate password
-            session.clear()  # Clear existing session data
-            login_user(user)  # Log in the user
+        if user and user.check_password(form.data['password']):
+            session.clear()
+            login_user(user)
             return jsonify(user.to_dict())
         return jsonify({'errors': {'message': 'Invalid email or password'}}), 401
     return jsonify({'errors': form.errors}), 401
@@ -49,12 +49,12 @@ def sign_up():
     Creates a new user, logs them in, and returns their information.
     """
     form = SignUpForm()
-    form['csrf_token'].data = request.cookies.get('csrf_token')  # Safely get CSRF token
+    form['csrf_token'].data = request.cookies.get('csrf_token')
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']  # Assuming the User model hashes passwords
+            password=form.data['password']
         )
         db.session.add(user)
         db.session.commit()

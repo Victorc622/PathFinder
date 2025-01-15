@@ -12,24 +12,34 @@ def create_trip():
     """
     data = request.get_json()
     new_trip = Trip(
-        name=data.get('name'),
+        name=data['name'],
         description=data.get('description'),
-        start_date=data.get('start_date'),
-        end_date=data.get('end_date'),
+        start_date=data['start_date'],
+        end_date=data['end_date'],
         owner_id=current_user.id
     )
     db.session.add(new_trip)
     db.session.commit()
     return jsonify(new_trip.to_dict()), 201
 
+
 @trip_routes.route('/', methods=['GET'])
 @login_required
 def get_trips():
     """
-    Fetch all trips for the logged-in user.
+    Fetch all trips for the logged-in user with optional pagination.
     """
-    trips = Trip.query.filter_by(owner_id=current_user.id).all()
-    return jsonify([trip.to_dict() for trip in trips]), 200
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+
+    trips = Trip.query.filter_by(owner_id=current_user.id).paginate(page=page, per_page=per_page, error_out=False)
+    return jsonify({
+        'trips': [trip.to_dict() for trip in trips.items],
+        'total': trips.total,
+        'page': trips.page,
+        'pages': trips.pages
+    }), 200
+
 
 @trip_routes.route('/<int:id>', methods=['GET'])
 @login_required
@@ -38,9 +48,13 @@ def get_trip(id):
     Fetch a specific trip by ID.
     """
     trip = Trip.query.get(id)
-    if not trip or trip.owner_id != current_user.id:
-        return jsonify({'error': 'Trip not found or unauthorized'}), 404
+    if not trip:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Trip not found'}]}), 404
+    if trip.owner_id != current_user.id:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Unauthorized access'}]}), 403
+
     return jsonify(trip.to_dict()), 200
+
 
 @trip_routes.route('/<int:id>', methods=['PUT'])
 @login_required
@@ -49,8 +63,10 @@ def update_trip(id):
     Update a specific trip by ID.
     """
     trip = Trip.query.get(id)
-    if not trip or trip.owner_id != current_user.id:
-        return jsonify({'error': 'Trip not found or unauthorized'}), 404
+    if not trip:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Trip not found'}]}), 404
+    if trip.owner_id != current_user.id:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Unauthorized access'}]}), 403
 
     data = request.get_json()
     trip.name = data.get('name', trip.name)
@@ -61,6 +77,7 @@ def update_trip(id):
     db.session.commit()
     return jsonify(trip.to_dict()), 200
 
+
 @trip_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_trip(id):
@@ -68,8 +85,10 @@ def delete_trip(id):
     Delete a specific trip by ID.
     """
     trip = Trip.query.get(id)
-    if not trip or trip.owner_id != current_user.id:
-        return jsonify({'error': 'Trip not found or unauthorized'}), 404
+    if not trip:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Trip not found'}]}), 404
+    if trip.owner_id != current_user.id:
+        return jsonify({'errors': [{'field': 'id', 'message': 'Unauthorized access'}]}), 403
 
     db.session.delete(trip)
     db.session.commit()

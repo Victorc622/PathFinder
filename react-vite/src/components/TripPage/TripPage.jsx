@@ -11,7 +11,7 @@ const TripPage = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await fetch("/api/trips");
+        const response = await fetch("/api/trips/");
         if (!response.ok) throw new Error("Failed to fetch trips");
         const data = await response.json();
         setTrips(data.trips || []);
