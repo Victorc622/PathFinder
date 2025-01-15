@@ -13,14 +13,12 @@ class Trip(db.Model):
     _end_date = db.Column('end_date', db.Date, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-    # Relationships
     owner = db.relationship("User", back_populates="trips")
     destinations = db.relationship("Destination", back_populates="trip", cascade="all, delete-orphan")
     photos = db.relationship("Photo", back_populates="trip", cascade="all, delete-orphan")
     collaborators = db.relationship("Collaboration", back_populates="trip", cascade="all, delete-orphan")
     comments = db.relationship("Comment", back_populates="trip", cascade="all, delete-orphan")
 
-    # Start Date Property
     @property
     def start_date(self):
         return self._start_date
@@ -37,7 +35,6 @@ class Trip(db.Model):
         except ValueError:
             raise ValueError("Invalid start date format. Expected MM-DD-YYYY.")
 
-    # End Date Property
     @property
     def end_date(self):
         return self._end_date
@@ -54,7 +51,6 @@ class Trip(db.Model):
         except ValueError:
             raise ValueError("Invalid end date format. Expected MM-DD-YYYY.")
 
-    # Serialize Trip Data
     def to_dict(self, include_related=False):
         trip_dict = {
             'id': self.id,

@@ -14,7 +14,7 @@ def create_trip():
     data = request.get_json()
 
     try:
-        # Parse input dates in YYYY-MM-DD format
+
         start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
         end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
     except ValueError:
@@ -23,8 +23,8 @@ def create_trip():
     new_trip = Trip(
         name=data['name'],
         description=data.get('description'),
-        start_date=start_date,  # Pass in MM-DD-YYYY formatted string
-        end_date=end_date,      # Pass in MM-DD-YYYY formatted string
+        start_date=start_date,
+        end_date=end_date,
         owner_id=current_user.id
     )
     db.session.add(new_trip)

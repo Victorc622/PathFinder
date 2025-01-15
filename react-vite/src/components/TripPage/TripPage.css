@@ -82,14 +82,18 @@ body {
 }
 
 .trip-card h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    color: #333;
+    margin: 0 auto 15px auto;
+    font-size: 1.8rem;
+    color: #6a4f98;
+    text-align: center;
 }
 
 .trip-card p {
-    margin: 10px 0;
+    margin: 10px auto;
+    font-size: 1rem;
     color: #666;
+    text-align: center;
+    line-height: 1.6;
 }
 
 .trip-dates {
@@ -126,17 +130,27 @@ body {
     background-color: #732d91;
 }
 
+.trip-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-trip-button,
 .delete-trip-button {
-    background-color: #ff4d4f;
+    background-color: #6a4f98;
     color: white;
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 0.9rem;
-    margin-top: 10px;
-  }
-  
-  .delete-trip-button:hover {
-    background-color: #ff1a1d;
-  }
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-trip-button:hover,
+.delete-trip-button:hover {
+    background-color: #8e44ad;
+    transform: scale(1.05)
+}

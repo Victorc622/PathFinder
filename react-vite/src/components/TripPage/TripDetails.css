@@ -1,0 +1,86 @@
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fafafa;
+}
+
+.trip-details-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #e1d0e8;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.trip-details-container h1 {
+    font-size: 2.5rem;
+    color: #6a4f98;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.trip-details-container p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #6a4f98;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.back-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #8e44ad;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #732d91;
+}
+
+.trip-details-section {
+    background-color: #f3e6f5;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #d1aedf;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.trip-details-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #6a4f98;
+    text-align: center;
+}
+
+.trip-details-section p {
+    font-size: 1rem;
+    color: #555;
+    text-align: center;
+}
+
+.trip-dates {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #8e44ad;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.trip-details-container .trip-description-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #6a4f98;
+    text-align: center;
+}

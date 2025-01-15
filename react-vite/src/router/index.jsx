@@ -5,6 +5,7 @@ import Layout from './Layout';
 import HomePage from '../components/HomePage/HomePage';
 import TripPage from '../components/TripPage/TripPage';
 import CreateTrip from '../components/TripPage/TripFormPage';
+import TripDetails from '../components/TripPage/TripDetails';
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "create-trip",
         element: <CreateTrip />,
+      },
+      {
+        path: "trips/:id",
+        element: <TripDetails />,
       },
     ],
   },

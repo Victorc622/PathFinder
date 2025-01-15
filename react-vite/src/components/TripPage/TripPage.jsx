@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./TripPage.css";
 
 const TripPage = () => {
   const [trips, setTrips] = useState([]);
-  const [selectedTrip, setSelectedTrip] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -42,69 +42,63 @@ const TripPage = () => {
     }
   };
 
+  const handleEditTrip = (tripId) => {
+    navigate(`/trips/edit/${tripId}`);
+  };
+
   if (loading) return <div className="loading-spinner">Loading...</div>;
 
   return (
     <div className="trip-page-container">
-      {!selectedTrip ? (
-        <div>
-          <header className="trip-page-header">
-            <h1>My Trips</h1>
-            {error || trips.length === 0 ? (
-              <div className="no-trips-message">
-                <p>You currently have no trips planned</p>
-              </div>
-            ) : null}
-
-            <Link to="/create-trip">
-              <button className="create-trip-button">+ Create New Trip</button>
-            </Link>
-          </header>
-          <div className="trip-list">
-            {trips.map((trip) => (
-              <div key={trip.id} className="trip-card">
-                <div
-                  className="trip-info"
-                  onClick={() => setSelectedTrip(trip)}
-                >
-                  <h3>{trip.name}</h3>
-                  <p>{trip.description}</p>
-                  <p className="trip-dates">
-                    {new Date(trip.start_date).toLocaleDateString()} -{" "}
-                    {new Date(trip.end_date).toLocaleDateString()}
-                  </p>
-                </div>
-                <button
-                  className="delete-trip-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteTrip(trip.id);
-                  }}
-                >
-                  Delete Trip
-                </button>
-              </div>
-            ))}
+      <header className="trip-page-header">
+        <h1>My Trips</h1>
+        {error || trips.length === 0 ? (
+          <div className="no-trips-message">
+            <p>You currently have no trips planned</p>
           </div>
-        </div>
-      ) : (
-        <div className="trip-details">
-          <button className="back-button" onClick={() => setSelectedTrip(null)}>
-            Back to Trips
-          </button>
-          <header className="trip-details-header">
-            <h1>{selectedTrip.name}</h1>
-            <p>
-              {new Date(selectedTrip.start_date).toLocaleDateString()} -{" "}
-              {new Date(selectedTrip.end_date).toLocaleDateString()}
-            </p>
-          </header>
-          <section className="trip-details-section">
-            <h2>Description</h2>
-            <p>{selectedTrip.description}</p>
-          </section>
-        </div>
-      )}
+        ) : null}
+
+        <Link to="/create-trip">
+          <button className="create-trip-button">+ Create New Trip</button>
+        </Link>
+      </header>
+      <div className="trip-list">
+        {trips.map((trip) => (
+          <div key={trip.id} className="trip-card">
+            <div
+              className="trip-info"
+              onClick={() => navigate(`/trips/${trip.id}`)}
+            >
+              <h3>{trip.name}</h3>
+              <p>{trip.description}</p>
+              <p className="trip-dates">
+                {new Date(trip.start_date).toLocaleDateString()} -{" "}
+                {new Date(trip.end_date).toLocaleDateString()}
+              </p>
+            </div>
+            <div className="trip-actions">
+              <button
+                className="edit-trip-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditTrip(trip.id);
+                }}
+              >
+                Edit
+              </button>
+              <button
+                className="delete-trip-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteTrip(trip.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
