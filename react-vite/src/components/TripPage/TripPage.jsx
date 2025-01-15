@@ -26,6 +26,22 @@ const TripPage = () => {
     fetchTrips();
   }, []);
 
+  const handleDeleteTrip = async (tripId) => {
+    if (!window.confirm("Are you sure you want to delete this trip?")) return;
+
+    try {
+      const response = await fetch(`/api/trips/${tripId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete trip");
+
+      setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
+    } catch (err) {
+      console.error(err.message);
+      alert("Failed to delete trip. Please try again.");
+    }
+  };
+
   if (loading) return <div className="loading-spinner">Loading...</div>;
 
   return (
@@ -46,17 +62,27 @@ const TripPage = () => {
           </header>
           <div className="trip-list">
             {trips.map((trip) => (
-              <div
-                key={trip.id}
-                className="trip-card"
-                onClick={() => setSelectedTrip(trip)}
-              >
-                <h3>{trip.name}</h3>
-                <p>{trip.description}</p>
-                <p className="trip-dates">
-                  {new Date(trip.start_date).toLocaleDateString()} -{" "}
-                  {new Date(trip.end_date).toLocaleDateString()}
-                </p>
+              <div key={trip.id} className="trip-card">
+                <div
+                  className="trip-info"
+                  onClick={() => setSelectedTrip(trip)}
+                >
+                  <h3>{trip.name}</h3>
+                  <p>{trip.description}</p>
+                  <p className="trip-dates">
+                    {new Date(trip.start_date).toLocaleDateString()} -{" "}
+                    {new Date(trip.end_date).toLocaleDateString()}
+                  </p>
+                </div>
+                <button
+                  className="delete-trip-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteTrip(trip.id);
+                  }}
+                >
+                  Delete Trip
+                </button>
               </div>
             ))}
           </div>

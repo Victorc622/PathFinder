@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import Trip, db
 from flask_login import login_required, current_user
+from datetime import datetime
 
 trip_routes = Blueprint('trips', __name__)
 
@@ -11,17 +12,24 @@ def create_trip():
     Create a new trip for the logged-in user.
     """
     data = request.get_json()
+
+    try:
+        # Parse input dates in YYYY-MM-DD format
+        start_date = datetime.strptime(data['start_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
+        end_date = datetime.strptime(data['end_date'], '%Y-%m-%d').strftime('%m-%d-%Y')
+    except ValueError:
+        return jsonify({'errors': [{'field': 'dates', 'message': 'Invalid date format. Expected YYYY-MM-DD.'}]}), 400
+
     new_trip = Trip(
         name=data['name'],
         description=data.get('description'),
-        start_date=data['start_date'],
-        end_date=data['end_date'],
+        start_date=start_date,  # Pass in MM-DD-YYYY formatted string
+        end_date=end_date,      # Pass in MM-DD-YYYY formatted string
         owner_id=current_user.id
     )
     db.session.add(new_trip)
     db.session.commit()
     return jsonify(new_trip.to_dict()), 201
-
 
 @trip_routes.route('/', methods=['GET'])
 @login_required

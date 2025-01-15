@@ -125,3 +125,18 @@ body {
 .back-button:hover {
     background-color: #732d91;
 }
+
+.delete-trip-button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+  
+  .delete-trip-button:hover {
+    background-color: #ff1a1d;
+  }

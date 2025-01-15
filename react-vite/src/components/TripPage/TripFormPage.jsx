@@ -10,7 +10,7 @@ const CreateTrip = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/trips', {
+      const response = await fetch('/api/trips/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
