@@ -19,6 +19,8 @@ body {
   background-color: #f5f2fc;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Allow the form to scroll if it gets too long */
+  max-height: calc(100vh - 80px); /* Adjust height to fit within viewport */
 }
 
 .trip-form {
@@ -28,10 +30,18 @@ body {
 }
 
 h1 {
-  font-size: 1.8rem;
-  color: #6a4f98;
+  font-size: 1.5rem; /* Same text size for all headings */
+  color: #6a4f98; /* Purple color for consistency */
   text-align: center;
   margin-bottom: 20px;
+}
+
+h2,
+h3,
+h4 {
+  font-size: 1.3rem; /* Unified size for subheadings */
+  color: #6a4f98; /* Purple color for destinations and activities */
+  margin-bottom: 10px;
 }
 
 .form-group {
@@ -41,7 +51,7 @@ h1 {
 }
 
 label {
-  font-size: 1rem;
+  font-size: 1rem; /* Unified size for form labels */
   color: #6a4f98;
 }
 
@@ -50,7 +60,7 @@ textarea {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ddd;
-  font-size: 1rem;
+  font-size: 1rem; /* Unified size for form inputs and textareas */
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -70,7 +80,7 @@ textarea {
 .add-activity-button {
   background-color: #8e44ad;
   color: white;
-  font-size: 1rem;
+  font-size: 1rem; /* Unified size for buttons */
   font-weight: bold;
   padding: 10px 15px;
   border: none;
@@ -104,8 +114,6 @@ textarea {
 .destination-group h3,
 .activity-group h4 {
   margin-bottom: 10px;
-  font-size: 1.3rem;
-  color: #333;
 }
 
 .activity-group {
@@ -113,11 +121,27 @@ textarea {
 }
 
 .map-container {
-  flex: 0 0 50%; /* Allow the map to take up 50% of the page width */
+  flex: 0 0 50%;
   height: 600px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 80px;
+}
+
+.map-search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem; /* Unified size for search input */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.map-search-bar input:focus {
+  border-color: #6a4f98;
 }
 
 /* Responsive Design */
@@ -134,5 +158,6 @@ textarea {
 
   .map-container {
     height: 300px;
+    position: relative;
   }
 }
